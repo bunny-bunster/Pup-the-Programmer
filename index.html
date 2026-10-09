@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pup the Programmer 🐶</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #b8f2e6, #aed6f1);
+      color: #243447;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+      background: white;
+      padding: 32px 24px;
+      border-radius: 28px;
+      box-shadow: 0 12px 35px #29485b30;
+    }
+
+    h1 {
+      color: #287a68;
+      margin-bottom: 8px;
+    }
+
+    .dog {
+      font-size: 100px;
+      margin: 16px 0;
+      animation: wag 1.5s infinite ease-in-out;
+    }
+
+    @keyframes wag {
+      0%, 100% { transform: rotate(-4deg); }
+      50% { transform: rotate(4deg); }
+    }
+
+    .speech {
+      background: #edf9f5;
+      border: 2px solid #b8e8d9;
+      border-radius: 18px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .speech h2 {
+      margin-top: 0;
+      color: #287a68;
+      font-size: 21px;
+    }
+
+    .pun {
+      font-style: italic;
+      color: #536878;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #287a68;
+      color: white;
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    button:hover {
+      background: #1d5f51;
+      transform: translateY(-2px);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #f2b84b;
+      outline-offset: 3px;
+    }
+
+    .secondary {
+      background: #e9eff3;
+      color: #243447;
+    }
+
+    .secondary:hover {
+      background: #d5e2e9;
+    }
+
+    footer {
+      margin-top: 24px;
+      font-size: 13px;
+      color: #667784;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <h1>🐶 Pup the Programmer</h1>
+    <p>Your daily dose of coding facts and paw-some puns!</p>
+
+    <div class="dog" aria-label="Dog mascot">🐕‍🦺</div>
+
+    <section class="speech" aria-live="polite">
+      <h2 id="title">Welcome, human!</h2>
+      <p id="fact">
+        I'm Pup! Press the button and I'll fetch you a programming fact.
+      </p>
+      <p class="pun" id="pun">
+        I promise my jokes are only a little ruff.
+      </p>
+    </section>
+
+    <button onclick="newFact()">🐾 Fetch a Fact!</button>
+    <button class="secondary" onclick="showJoke()">🦴 Tell Me a Joke</button>
+
+    <footer>
+      Made with ❤️, JavaScript, and probably too many treats.
+    </footer>
+  </main>
+
+  <script>
+    const facts = [
+      {
+        title: "JavaScript",
+        fact: "JavaScript can make websites interactive, respond to clicks, and update content without reloading the page.",
+        pun: "JavaScript is paws-itively good at making things happen!"
+      },
+      {
+        title: "Python",
+        fact: "Python is a programming language known for its readable syntax. It's used in web development, automation, and AI.",
+        pun: "Python is great for beginners. It really knows how to scale things up!"
+      },
+      {
+        title: "HTML",
+        fact: "HTML provides the structure of a webpage using elements like headings, paragraphs, images, and buttons.",
+        pun: "HTML gives your website a solid struc-bone!"
+      },
+      {
+        title: "CSS",
+        fact: "CSS controls how a website looks, including colors, spacing, layouts, and animations.",
+        pun: "CSS makes your website look fur-bulous!"
+      },
+      {
+        title: "Variables",
+        fact: "Variables let programs store and refer to information, such as a player's score or a dog's name.",
+        pun: "My favorite variable is treatCount. It keeps going up!"
+      },
+      {
+        title: "Loops",
+        fact: "Loops repeat instructions. They are useful when you need a program to do the same task multiple times.",
+        pun: "I chase my tail in a loop. That's what I call circular logic!"
+      },
+      {
+        title: "Functions",
+        fact: "Functions package instructions into reusable blocks of code that can be called whenever needed.",
+        pun: "My favorite function is fetch(). It always brings something back!"
+      },
+      {
+        title: "Debugging",
+        fact: "Debugging means finding and fixing problems in a program.",
+        pun: "When code has bugs, I sniff out the errors!"
+      },
+      {
+        title: "Binary",
+        fact: "Binary represents data using two digits: 0 and 1. Computers use binary in their underlying digital systems.",
+        pun: "There are 10 kinds of dogs: those who understand binary and those who don't. 🐶"
+      },
+      {
+        title: "Open Source",
+        fact: "Open-source software makes its source code available under a license that allows people to use, inspect, and often modify it.",
+        pun: "Sharing code is a great way to build a pack!"
+      },
+      {
+        title: "Algorithms",
+        fact: "An algorithm is a sequence of steps for solving a problem or completing a task.",
+        pun: "Step one: find a treat. Step two: repeat. That's my snack-gorithm!"
+      },
+      {
+        title: "APIs",
+        fact: "An API defines a way for different software systems to communicate and exchange information.",
+        pun: "APIs help apps talk. Finally, someone understands my barking!"
+      }
+    ];
+
+    const jokes = [
+      {
+        title: "The Programmer's Dog",
+        fact: "Why did the dog learn programming?",
+        pun: "It wanted to become a bark-end developer!"
+      },
+      {
+        title: "A Byte to Eat",
+        fact: "What does a computer dog eat?",
+        pun: "Microchips and byte-sized treats!"
+      },
+      {
+        title: "Error 404",
+        fact: "Why couldn't the dog find its bone?",
+        pun: "Error 404: Bone not found!"
+      },
+      {
+        title: "The Dog's Website",
+        fact: "Why did the puppy make a website?",
+        pun: "To show off its web-paw development skills!"
+      },
+      {
+        title: "Bad Reception",
+        fact: "Why did the dog sit beside the router?",
+        pun: "It was waiting for a better Wi-FI!"
+      }
+    ];
+
+    let lastFact = -1;
+    let lastJoke = -1;
+
+    function display(item) {
+      document.getElementById("title").textContent = item.title;
+      document.getElementById("fact").textContent = item.fact;
+      document.getElementById("pun").textContent = item.pun;
+    }
+
+    function pickRandom(items, previous) {
+      if (items.length === 1) return 0;
+
+      let index;
+      do {
+        index = Math.floor(Math.random() * items.length);
+      } while (index === previous);
+
+      return index;
+    }
+
+    function newFact() {
+      lastFact = pickRandom(facts, lastFact);
+      display(facts[lastFact]);
+    }
+
+    function showJoke() {
+      lastJoke = pickRandom(jokes, lastJoke);
+      display(jokes[lastJoke]);
+    }
+  </script>
+</body>
+</html>
